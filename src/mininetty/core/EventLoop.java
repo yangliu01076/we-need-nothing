@@ -1,5 +1,6 @@
 package mininetty.core;
 
+import minidubbo.framework.RpcHandler;
 import mininetty.handler.SimpleChannelHandler;
 
 import java.io.IOException;
@@ -108,7 +109,8 @@ public class EventLoop implements Runnable {
         // 创建 MiniChannel 并绑定 Handler
         MiniChannel miniChannel = new MiniChannel(client);
         // 添加一个默认处理器或用户定义的
-        miniChannel.pipeline().addLast(new SimpleChannelHandler(miniChannel));
+        miniChannel.pipeline().addLast(new SimpleChannelHandler(miniChannel))
+                .addLast(new RpcHandler(miniChannel));
 
         // 注册读事件，并将 miniChannel 作为 attachment 附加
         worker.register(client, miniChannel);
