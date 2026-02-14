@@ -18,5 +18,6 @@ public class SpringTest {
         MiniApplicationContext context = new MiniApplicationContext(SpringTest.class);
 //        ServiceA serviceA = (ServiceA) context.getBean("serviceA");
 //        serviceA.sayHello();
+        System.out.println("=== End Mini Spring ===");
     }
 }
