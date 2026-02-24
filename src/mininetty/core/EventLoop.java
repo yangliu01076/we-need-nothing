@@ -2,6 +2,7 @@ package mininetty.core;
 
 import minidubbo.framework.RpcHandler;
 import mininetty.handler.SimpleChannelHandler;
+import minispring.core.MiniApplicationContext;
 
 import java.io.IOException;
 import java.nio.channels.*;
@@ -18,6 +19,8 @@ public class EventLoop implements Runnable {
     private final Selector selector;
     private final ExecutorService executor;
     private Thread thread;
+
+    private MiniApplicationContext context;
 
     public boolean isBoss() {
         return isBoss;
@@ -50,8 +53,9 @@ public class EventLoop implements Runnable {
     }
 
     // 注册 ServerSocketChannel 到 Boss
-    public void register(ServerSocketChannel serverChannel) throws IOException {
+    public void register(ServerSocketChannel serverChannel, MiniApplicationContext context) throws IOException {
         serverChannel.register(selector, SelectionKey.OP_ACCEPT);
+        this.context = context;
         startThread(); // 启动死循环
     }
 
@@ -110,7 +114,7 @@ public class EventLoop implements Runnable {
         MiniChannel miniChannel = new MiniChannel(client);
         // 添加一个默认处理器或用户定义的
         miniChannel.pipeline().addLast(new SimpleChannelHandler(miniChannel))
-                .addLast(new RpcHandler(miniChannel));
+                .addLast(new RpcHandler(miniChannel,context));
 
         // 注册读事件，并将 miniChannel 作为 attachment 附加
         worker.register(client, miniChannel);

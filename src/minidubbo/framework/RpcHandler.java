@@ -2,7 +2,7 @@ package minidubbo.framework;
 
 import mininetty.core.ChannelHandler;
 import mininetty.core.MiniChannel;
-import minispring.annotation.Component;
+import minispring.core.MiniApplicationContext;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -15,8 +15,11 @@ public class RpcHandler implements ChannelHandler {
 
     private final MiniChannel channel;
 
-    public RpcHandler(MiniChannel channel) {
+    private final MiniApplicationContext context;
+
+    public RpcHandler(MiniChannel channel, MiniApplicationContext context) {
         this.channel = channel;
+        this.context = context;
     }
 
 
@@ -44,15 +47,16 @@ public class RpcHandler implements ChannelHandler {
             String paramValue = (paramParts.length > 1) ? paramParts[1] : "";
 
             // 2. 查找服务实现
-            Object serviceImpl = MapService.get(interfaceName);
+//            Object serviceImpl = MapService.get(interfaceName);
+            Object serviceImpl = context.getBean(interfaceName);
             if (serviceImpl == null) {
                 channel.write("Error: Service Not Found\n");
                 return;
             }
 
             // 3. 反射调用方法
-            Method method = serviceImpl.getClass().getMethod(methodName, String.class);
-            Object result = method.invoke(serviceImpl, paramValue);
+            Method method = serviceImpl.getClass().getMethod(methodName);
+            Object result = method.invoke(serviceImpl);
 
             // 4. 返回结果
             channel.write("Result: " + result + "\n");

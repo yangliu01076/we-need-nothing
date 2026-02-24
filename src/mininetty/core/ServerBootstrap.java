@@ -33,7 +33,7 @@ public class ServerBootstrap {
         serverChannel.bind(new InetSocketAddress(port));
 
         // 2. 注册到 Boss
-        bossGroup.register(serverChannel);
+        bossGroup.register(serverChannel,null);
 
         System.out.println("Server started on port: " + port);
 

@@ -27,7 +27,7 @@ public class MiniNettyApplication {
         serverChannel.bind(new InetSocketAddress(8080));
 
         // 注册到 Boss
-        bossGroup.register(serverChannel);
+        bossGroup.register(serverChannel, null);
         System.out.println("Mini Netty Server started on 8080...");
 
         // 4. (可选) 设置一个全局的 Handler 或者修改 MiniChannel 的构造来注入 Handler

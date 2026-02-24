@@ -1,5 +1,7 @@
 package mininetty.core;
 
+import minispring.core.MiniApplicationContext;
+
 import java.io.IOException;
 import java.nio.channels.ServerSocketChannel;
 import java.util.ArrayList;
@@ -34,7 +36,7 @@ public class EventLoopGroup {
     }
 
     // 注册 ServerSocket (仅 Boss 调用)
-    public void register(ServerSocketChannel serverChannel) throws IOException {
-        next().register(serverChannel);
+    public void register(ServerSocketChannel serverChannel, MiniApplicationContext context) throws IOException {
+        next().register(serverChannel, context);
     }
 }

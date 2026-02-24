@@ -17,6 +17,6 @@ public class Main {
     @PostConstruct
     public void init() {
         System.out.println("Main init");
-        serviceA.sayHello();
+//        serviceA.sayHello();
     }
 }

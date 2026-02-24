@@ -12,8 +12,9 @@ public class ServiceA {
     @Autowired
     private ServiceB serviceB;
 
-    public void sayHello() {
+    public String sayHello() {
         System.out.println("I am A, calling B...");
         serviceB.sayHi();
+        return "Hello, I am A";
     }
 }
