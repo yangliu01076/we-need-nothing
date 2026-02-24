@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.channels.ServerSocketChannel;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * @author duoyian
@@ -38,5 +39,9 @@ public class EventLoopGroup {
     // 注册 ServerSocket (仅 Boss 调用)
     public void register(ServerSocketChannel serverChannel, MiniApplicationContext context) throws IOException {
         next().register(serverChannel, context);
+    }
+
+    public void setChannelInitializer(Consumer<MiniChannel> initializer) {
+        eventLoops.forEach(eventLoop -> eventLoop.setChannelInitializer(initializer));
     }
 }

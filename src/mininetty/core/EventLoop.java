@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.function.Consumer;
 
 /**
  * @author duoyian
@@ -45,6 +46,12 @@ public class EventLoop implements Runnable {
     // 持有 WorkerGroup 的引用
     private EventLoopGroup workerGroup;
 
+    private Consumer<MiniChannel> channelInitializer;
+
+    public void setChannelInitializer(Consumer<MiniChannel> initializer) {
+        this.channelInitializer = initializer;
+    }
+
     public EventLoop(boolean isBoss) throws IOException {
         this.isBoss = isBoss;
         this.selector = Selector.open();
@@ -60,10 +67,11 @@ public class EventLoop implements Runnable {
     }
 
     // 注册 SocketChannel 到 Worker（由 Boss 调用）
-    public void register(SocketChannel socketChannel) throws IOException {
+    public void register(SocketChannel socketChannel, MiniApplicationContext context) throws IOException {
         // 这里简单处理：如果当前线程不是 EventLoop 线程，应该提交任务队列
         // 为了代码极简，我们直接注册
         socketChannel.register(selector, SelectionKey.OP_READ);
+        this.context = context;
         startThread();
     }
 
@@ -112,9 +120,13 @@ public class EventLoop implements Runnable {
 
         // 创建 MiniChannel 并绑定 Handler
         MiniChannel miniChannel = new MiniChannel(client);
-        // 添加一个默认处理器或用户定义的
-        miniChannel.pipeline().addLast(new SimpleChannelHandler(miniChannel))
-                .addLast(new RpcHandler(miniChannel,context));
+        if (this.channelInitializer != null) {
+            System.out.println("Initializing channel with initializer");
+            this.channelInitializer.accept(miniChannel);
+        } else {
+            // 添加一个默认处理器或用户定义的
+            miniChannel.pipeline().addLast(new SimpleChannelHandler(miniChannel));
+        }
 
         // 注册读事件，并将 miniChannel 作为 attachment 附加
         worker.register(client, miniChannel);

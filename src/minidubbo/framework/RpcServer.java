@@ -5,6 +5,7 @@ package minidubbo.framework;
 //import com.mininetty.core.EventLoopGroup;
 //import minispring.beans.ApplicationContext;
 import mininetty.core.EventLoopGroup;
+import mininetty.handler.SimpleChannelHandler;
 import minispring.core.MiniApplicationContext;
 
 import java.io.IOException;
@@ -37,6 +38,12 @@ public class RpcServer {
         // 2个 Worker 线程
         EventLoopGroup workerGroup = new EventLoopGroup(2);
         bossGroup.next().setWorkerGroup(workerGroup);
+        bossGroup.setChannelInitializer(ch -> {
+            System.out.println("Initializing pipeline for new connection...");
+            // 添加业务 Handler
+            ch.pipeline().addLast(new SimpleChannelHandler(ch))
+                    .addLast(new RpcHandler(ch, applicationContext));
+        });
 
         try {
             ServerSocketChannel serverChannel = ServerSocketChannel.open();
