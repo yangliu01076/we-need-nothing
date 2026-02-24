@@ -49,14 +49,16 @@ public class DefaultSingletonBeanRegistry {
     protected Object getSingleton(String beanName) {
         Object singletonObject = this.singletonObjects.get(beanName);
         if (singletonObject == null) {
-            singletonObject = this.earlySingletonObjects.get(beanName);
-            if (singletonObject == null) {
-                ObjectFactory<?> singletonFactory = this.singletonFactories.get(beanName);
-                if (singletonFactory != null) {
-                    // 从三级缓存获取，并升级到二级缓存
-                    singletonObject = singletonFactory.getObject();
-                    this.earlySingletonObjects.put(beanName, singletonObject);
-                    this.singletonFactories.remove(beanName);
+            synchronized (this.singletonObjects) {
+                singletonObject = this.earlySingletonObjects.get(beanName);
+                if (singletonObject == null) {
+                    ObjectFactory<?> singletonFactory = this.singletonFactories.get(beanName);
+                    if (singletonFactory != null) {
+                        // 从三级缓存获取，并升级到二级缓存
+                        singletonObject = singletonFactory.getObject();
+                        this.earlySingletonObjects.put(beanName, singletonObject);
+                        this.singletonFactories.remove(beanName);
+                    }
                 }
             }
         }
