@@ -1,7 +1,5 @@
-import java.io.BufferedInputStream;
-import java.io.DataInputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -11,27 +9,12 @@ import java.util.stream.Stream;
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    public static void main(String[] args) {
-
-//        try {
-//            // 1. 创建最基础的节点流（被装饰者）：读取文件
-//            FileInputStream fileInput = new FileInputStream("test.txt");
-//
-//            // 2. 裹上一层缓冲功能（装饰器 1）
-//            BufferedInputStream bufferedInput = new BufferedInputStream(fileInput);
-//
-//            // 3. 再裹上一层读取数据类型的功能（装饰器 2）
-//            DataInputStream dataInput = new DataInputStream(bufferedInput);
-//
-//            // 4. 开始读取
-//            int result = dataInput.readInt();
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        } finally {
-//            // 5. 关闭流
-//
-//        }
-        StateTransitionChecker.State state = StateTransitionChecker.State.CREATED;
+    public static void main(String[] args) throws UnsupportedEncodingException {
+        String s = "serviceA:sayHello:xx";
+        byte[] bytes = s.getBytes(StandardCharsets.UTF_8);
+        System.out.println(bytes.length);
+        System.out.println(Arrays.toString(bytes));
+        System.out.println(new String(bytes, StandardCharsets.UTF_8));
     }
 
     private void test(Integer a) {
