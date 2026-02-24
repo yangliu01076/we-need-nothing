@@ -1,9 +1,7 @@
 package org.example;
 
-import minispring.annotation.Autowired;
-import minispring.annotation.SpringBootApplication;
-import minispring.core.MiniApplicationContext;
-import org.example.src.ServiceA;
+import org.example.minispring.annotation.SpringBootApplication;
+import org.example.minispring.core.MiniApplicationContext;
 
 /**
  * @author duoyian

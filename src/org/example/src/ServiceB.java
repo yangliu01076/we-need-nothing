@@ -1,7 +1,7 @@
 package org.example.src;
 
-import minispring.annotation.Autowired;
-import minispring.annotation.Component;
+import org.example.minispring.annotation.Autowired;
+import org.example.minispring.annotation.Component;
 
 /**
  * @author duoyian

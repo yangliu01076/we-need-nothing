@@ -1,8 +1,8 @@
 package org.example;
 
-import minidubbo.framework.RpcServer;
-import minispring.annotation.SpringBootApplication;
-import minispring.core.MiniApplicationContext;
+import org.example.minidubbo.framework.RpcServer;
+import org.example.minispring.annotation.SpringBootApplication;
+import org.example.minispring.core.MiniApplicationContext;
 
 import java.io.IOException;
 

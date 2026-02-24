@@ -1,8 +1,8 @@
 package org.example.src;
 
-import minispring.annotation.Autowired;
-import minispring.annotation.Component;
-import minispring.annotation.PostConstruct;
+import org.example.minispring.annotation.Autowired;
+import org.example.minispring.annotation.Component;
+import org.example.minispring.annotation.PostConstruct;
 
 /**
  * @author duoyian
