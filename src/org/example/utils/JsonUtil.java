@@ -68,6 +68,8 @@ public class JsonUtil {
         return serialize(obj);
     }
 
+    // ================= 核心解析逻辑 (递归下降) =================
+
     private static String serialize(Object obj) {
         // 1. 处理基本类型、包装类型、String
         if (obj instanceof String || obj instanceof Character) {
@@ -184,8 +186,6 @@ public class JsonUtil {
         }
         return sb.toString();
     }
-
-    // ================= 核心解析逻辑 (递归下降) =================
 
     /**
      * 解析任意 JSON 值
