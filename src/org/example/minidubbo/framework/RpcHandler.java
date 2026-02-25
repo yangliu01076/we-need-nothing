@@ -64,7 +64,7 @@ public class RpcHandler implements ChannelHandler {
         } catch (Exception e) {
             e.printStackTrace();
             try {
-                channel.write("Error: " + e.getMessage() + "\n");
+                channel.write("Error: " + e.getClass().getName() + ": " + e.getMessage() + "\n");
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

@@ -3,6 +3,8 @@ package org.example.minispring.core;
 import org.example.minispring.annotation.Component;
 import org.example.minispring.annotation.ComponentScan;
 import org.example.minispring.annotation.SpringBootApplication;
+import org.example.minispring.annotation.Bean;
+import org.example.utils.StringUtil;
 
 import java.io.File;
 import java.net.URL;
@@ -47,7 +49,9 @@ public class MiniApplicationContext  extends AbstractAutowireCapableBeanFactory 
 
     private void scanDirectory(File directory, String packageName) {
         File[] files = directory.listFiles();
-        if (files == null) return;
+        if (files == null) {
+            return;
+        }
 
         for (File file : files) {
             if (file.isDirectory()) {
@@ -73,6 +77,32 @@ public class MiniApplicationContext  extends AbstractAutowireCapableBeanFactory 
                         // 【关键修改】：只注册，不调用 getBean！
                         registerBeanDefinition(beanName, bd);
                         System.out.println("Registered BeanDefinition: " + beanName);
+
+                        // 遍历配置类中的所有方法
+                        for (java.lang.reflect.Method method : clazz.getMethods()) {
+
+                            // 检查方法是否有 @Bean 注解
+                            if (method.isAnnotationPresent(Bean.class)) {
+
+                                Bean myBeanAnno = method.getAnnotation(Bean.class);
+
+                                // 确定 Bean 的名称
+                                String myBeanName = myBeanAnno.name();
+                                if (StringUtil.isBlank(myBeanName)) {
+                                    // 如果没指定名字，默认使用方法名
+                                    myBeanName = method.getName();
+                                }
+
+                                // 构建 BeanDefinition
+                                bd = new BeanDefinition(method.getReturnType());
+                                bd.setBeanName(myBeanName);
+
+                                // 【关键修改】：只注册，不调用 getBean！
+                                registerBeanDefinition(myBeanName, bd);
+
+                                System.out.println("通过 @Bean 注解注册 Bean: " + myBeanName + ", 类型: " + method.getReturnType().getSimpleName());
+                            }
+                        }
                     }
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();

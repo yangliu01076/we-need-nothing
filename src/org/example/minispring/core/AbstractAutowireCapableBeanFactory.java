@@ -1,5 +1,6 @@
 package org.example.minispring.core;
 
+import org.example.exception.BeanDefinitionException;
 import org.example.minispring.annotation.Autowired;
 import org.example.minispring.annotation.PostConstruct;
 
@@ -41,6 +42,9 @@ public class AbstractAutowireCapableBeanFactory extends DefaultSingletonBeanRegi
 
     // 创建 Bean 的核心流程
     protected Object createBean(String beanName, BeanDefinition bd) {
+        if (bd == null) {
+            throw new BeanDefinitionException(beanName, "BeanDefinition is null");
+        }
         // 1. 实例化
         Object bean = doCreateBean(bd.getBeanClass());
 
