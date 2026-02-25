@@ -12,6 +12,8 @@ public class ServiceC {
 
     @Bean
     public ServiceD serviceD() {
-        return new ServiceD();
+        ServiceD serviceD = new ServiceD();
+        serviceD.setName("C创建的D");
+        return serviceD;
     }
 }

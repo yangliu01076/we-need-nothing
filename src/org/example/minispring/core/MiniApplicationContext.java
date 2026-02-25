@@ -7,6 +7,7 @@ import org.example.minispring.annotation.Bean;
 import org.example.utils.StringUtil;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.Enumeration;
 
@@ -96,15 +97,16 @@ public class MiniApplicationContext  extends AbstractAutowireCapableBeanFactory 
                                 // 构建 BeanDefinition
                                 bd = new BeanDefinition(method.getReturnType());
                                 bd.setBeanName(myBeanName);
-
-                                // 【关键修改】：只注册，不调用 getBean！
                                 registerBeanDefinition(myBeanName, bd);
+
+                                addSingleton(myBeanName, method.invoke(clazz.getDeclaredConstructor().newInstance()));
 
                                 System.out.println("通过 @Bean 注解注册 Bean: " + myBeanName + ", 类型: " + method.getReturnType().getSimpleName());
                             }
                         }
                     }
-                } catch (ClassNotFoundException e) {
+                } catch (ClassNotFoundException | IllegalAccessException | InvocationTargetException |
+                         InstantiationException | NoSuchMethodException e) {
                     e.printStackTrace();
                 }
             }
