@@ -1,3 +1,5 @@
+import org.example.utils.JsonUtil;
+
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
@@ -10,11 +12,13 @@ import java.util.stream.Stream;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) throws UnsupportedEncodingException {
-        String s = "serviceA:sayHello:xx";
-        byte[] bytes = s.getBytes(StandardCharsets.UTF_8);
-        System.out.println(bytes.length);
-        System.out.println(Arrays.toString(bytes));
-        System.out.println(new String(bytes, StandardCharsets.UTF_8));
+        BaseResponse<String> baseResponse = BaseResponse.<String>newSuccResponse().errorCode(1).errorMsg("成功").result("Hello, World!").build();
+        String json = JsonUtil.toJson(baseResponse);
+        System.out.println(json);
+
+        BaseResponse baseResponse1 = JsonUtil.parseObject(json, BaseResponse.class);
+        System.out.println(baseResponse1.errorCode);
+
     }
 
     private void test(Integer a) {
