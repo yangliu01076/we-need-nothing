@@ -35,7 +35,7 @@ public class MiniBroker {
         return miniPartition.getMessages(offset, maxNum);
     }
 
-    public int getPartitionSize(String topic, int partitionId) {
+    public int getPartitionSize(String topic) {
         MiniTopic miniTopicObj = topics.get(topic);
         if (miniTopicObj == null) {
             throw new IllegalArgumentException("Topic not found");

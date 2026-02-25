@@ -13,7 +13,7 @@ public class MiniProducer {
 
     public void send(String topic, String key, String value) {
         // 简单的分区策略：根据key的哈希值选择分区
-        int partitionId = Math.abs(key.hashCode()) % miniBroker.getPartitionSize(topic, 0);
+        int partitionId = Math.abs(key.hashCode()) % miniBroker.getPartitionSize(topic);
         miniBroker.send(topic, partitionId, key, value);
     }
 }
