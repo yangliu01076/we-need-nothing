@@ -9,7 +9,7 @@ import org.example.minimybatis.mapper.UserMapper;
 import org.example.minispring.annotation.Autowired;
 import org.example.minispring.annotation.Bean;
 import org.example.minispring.annotation.Component;
-import org.example.utils.JsonUtil;
+import org.example.common.utils.JsonUtil;
 
 /**
  * @author duoyian

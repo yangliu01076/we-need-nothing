@@ -1,6 +1,6 @@
 package org.example.src;
 
-import org.example.utils.StringUtil;
+import org.example.common.utils.StringUtil;
 
 /**
  * @author duoyian

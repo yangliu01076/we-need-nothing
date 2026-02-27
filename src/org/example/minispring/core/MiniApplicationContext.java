@@ -4,7 +4,7 @@ import org.example.minispring.annotation.Component;
 import org.example.minispring.annotation.ComponentScan;
 import org.example.minispring.annotation.SpringBootApplication;
 import org.example.minispring.annotation.Bean;
-import org.example.utils.StringUtil;
+import org.example.common.utils.StringUtil;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;

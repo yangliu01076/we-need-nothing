@@ -1,4 +1,4 @@
-package org.example.exception;
+package org.example.common.exception;
 
 /**
  * @author duoyian
