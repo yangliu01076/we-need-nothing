@@ -1,0 +1,14 @@
+<configuration>
+    <dataSource>
+        <property name="driverClassName" value="org.example.minimybatis.mock.MockDriver"/>
+<!--        <property name="url" value="jdbc:mysql://localhost:3306/mybatis_demo?useSSL=false&amp;serverTimezone=UTC"/>-->
+        <property name="url" value="jdbc:mock:test_db"/>
+        <property name="username" value="root"/>
+        <property name="password" value="123456"/>
+    </dataSource>
+
+    <!-- 扫描 Mapper 文件 -->
+    <mappers>
+        <mapper resource="/Users/duoyian/IdeaProjects/demo/src/org/example/minimybatis/xml/mapper/UserMapper.xml"/>
+    </mappers>
+</configuration>
