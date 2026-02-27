@@ -7,6 +7,7 @@ import org.example.minimybatis.core.XmlConfigParser;
 import org.example.minimybatis.dto.User;
 import org.example.minimybatis.mapper.UserMapper;
 import org.example.minispring.annotation.Autowired;
+import org.example.minispring.annotation.Bean;
 import org.example.minispring.annotation.Component;
 import org.example.utils.JsonUtil;
 
@@ -26,10 +27,6 @@ public class MiniMybatisApplication {
         // 【关键】强制加载 MockDriver 类，触发其 static 代码块进行注册
         Class.forName("com.example.minimybatis.mock.MockDriver");
 
-        // 1. 解析配置文件
-        Configuration configuration = XmlConfigParser.parse(CONFIG_PATH);
-
-
         // 3. 获取 Mapper 代理对象
         UserMapper userMapper = defaultSqlSession.getMapper(UserMapper.class);
 
@@ -37,6 +34,11 @@ public class MiniMybatisApplication {
         User user = userMapper.selectById(1);
 
         System.out.println("查询结果: " + user);
+    }
+
+    @Bean
+    public Configuration configuration() {
+        return XmlConfigParser.parse(CONFIG_PATH);
     }
 
     public static void main(String[] args) throws ClassNotFoundException {

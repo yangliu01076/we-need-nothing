@@ -10,7 +10,6 @@ import java.util.Map;
  * @author duoyian
  * @date 2026/2/27
  */
-@Component
 public class Configuration {
     // 数据库连接配置
     private Map<String, String> dataSource = new HashMap<>();
