@@ -18,6 +18,7 @@ import org.example.utils.JsonUtil;
 @Component
 public class MiniMybatisApplication {
 
+    // 配置文件路径，为了方便，用绝对路径的方式读取，直接写死
     private static final String CONFIG_PATH = "/Users/duoyian/IdeaProjects/demo/src/org/example/minimybatis/xml/config/mybatis-config.xml";
 
     @Autowired
