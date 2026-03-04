@@ -11,13 +11,13 @@ import java.lang.reflect.Method;
  * @author duoyian
  * @date 2026/2/14
  */
-public class RpcHandler implements ChannelHandler {
+public class RpcChannelHandler implements ChannelHandler {
 
     private final MiniChannel channel;
 
     private final MiniApplicationContext context;
 
-    public RpcHandler(MiniChannel channel, MiniApplicationContext context) {
+    public RpcChannelHandler(MiniChannel channel, MiniApplicationContext context) {
         this.channel = channel;
         this.context = context;
     }

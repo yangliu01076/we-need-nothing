@@ -40,7 +40,7 @@ public class RpcServer {
             System.out.println("Initializing pipeline for new connection...");
             // 添加业务 Handler
             ch.pipeline().addLast(new SimpleChannelHandler(ch))
-                    .addLast(new RpcHandler(ch, applicationContext));
+                    .addLast(new RpcChannelHandler(ch, applicationContext));
         });
 
         try {
