@@ -1,6 +1,6 @@
 package org.example.minispring.core;
 
-import org.example.common.exception.BeanDefinitionException;
+import org.example.minispring.exception.BeanDefinitionException;
 import org.example.minispring.annotation.Autowired;
 import org.example.minispring.annotation.PostConstruct;
 
