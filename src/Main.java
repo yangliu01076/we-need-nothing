@@ -1,20 +1,21 @@
 import org.example.common.utils.JsonUtil;
 
 import java.io.*;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.text.*;
+import java.time.*;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    public static void main(String[] args) throws UnsupportedEncodingException {
-        BaseResponse<String> baseResponse = BaseResponse.<String>newSuccResponse().errorCode(1).errorMsg("成功").result("Hello, World!").build();
-        String json = JsonUtil.toJson(baseResponse);
-        System.out.println(json);
-
-        BaseResponse baseResponse1 = JsonUtil.parseObject(json, BaseResponse.class);
-        System.out.println(baseResponse1.errorCode);
-
+    public static void main(String[] args) {
+        Long a = 585364231L;
+        Long b = 5746234L;
+        System.out.println(a ^ b);
     }
+
+
 
     private void test(Integer a) {
         if (1 == a) {
