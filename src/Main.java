@@ -13,7 +13,11 @@ public class Main {
         Long a = 585364231L;
         Long b = 5746234L;
         System.out.println(a ^ b);
-
+        String[] split = "".split(",");
+        System.out.println(split.length);
+        for (int i = 0; i < split.length; i++) {
+            System.out.println(split[i]);
+        }
 
     }
 

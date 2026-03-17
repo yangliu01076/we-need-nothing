@@ -4,7 +4,7 @@
  */
 import java.util.*;
 
-public class StateTransitionChecker {
+public class SimpleStateMachineDemo {
 
     // 定义状态枚举
     public enum State { CREATED, PAID, SHIPPED, COMPLETED, CANCELLED }

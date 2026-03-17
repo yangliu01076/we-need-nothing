@@ -64,7 +64,9 @@ public class JsonUtil {
      * 对象转 JSON 字符串
      */
     public static String toJson(Object obj) {
-        if (obj == null) return "null";
+        if (obj == null) {
+            return "null";
+        }
         return serialize(obj);
     }
 
