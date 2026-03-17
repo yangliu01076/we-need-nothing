@@ -13,6 +13,8 @@ public class Main {
         Long a = 585364231L;
         Long b = 5746234L;
         System.out.println(a ^ b);
+
+
     }
 
 
