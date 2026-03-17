@@ -9,6 +9,7 @@ import java.util.Collections;
  */
 public final class Lists {
 
+    @SafeVarargs
     public static <E> ArrayList<E> newArrayList(E... elements) {;
         int capacity = computeArrayListCapacity(elements.length);
         ArrayList<E> list = new ArrayList<>(capacity);
