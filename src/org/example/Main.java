@@ -1,3 +1,5 @@
+package org.example;
+
 import org.example.common.utils.JsonUtil;
 
 import java.io.*;
