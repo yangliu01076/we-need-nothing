@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
  * @author duoyian
  * @date 2026/4/7
  */
-public class MiniEsPersist {
+public class MiniEsPersist implements PersistOperate {
 
     private static final String INDEX_DIR = "mini_es_index";
     private static final String DOC_STORE_FILE = "docs.dat";
@@ -25,6 +25,7 @@ public class MiniEsPersist {
         this.miniEsCore = miniEsCore;
     }
 
+    @Override
     public void persist() {
         long start = System.currentTimeMillis();
         // 1. 持久化正排索引
@@ -39,13 +40,15 @@ public class MiniEsPersist {
         System.out.println("[Info] Index persisted to disk in " + (System.currentTimeMillis() - start) + "ms");
     }
 
-    private void initStorage() {
+    @Override
+    public void initStorage() {
         File dir = new File(INDEX_DIR);
         if (!dir.exists()) {
             boolean createSuccess = dir.mkdirs();
         }
     }
 
+    @Override
     public void loadIndex() {
         System.out.println("[Info] Loading index from disk...");
         readMap(new File(INDEX_DIR, DOC_STORE_FILE), miniEsCore.getDocStore());

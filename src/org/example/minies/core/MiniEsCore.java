@@ -26,6 +26,8 @@ public class MiniEsCore {
 
     public void start() {
         this.miniEsPersist = new MiniEsPersist(this);
+        miniEsPersist.initStorage();
+        miniEsPersist.loadIndex();
     }
 
     /**
