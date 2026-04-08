@@ -15,8 +15,8 @@ import java.util.concurrent.ConcurrentSkipListMap;
 public class MemStore {
     private final ConcurrentSkipListMap<KeyValue, KeyValue> map = new ConcurrentSkipListMap<>();
     private long sizeInBytes = 0;
-//    private static final long FLUSH_THRESHOLD = 1024 * 1024 * 16; // 16MB 触发刷盘
-    private static final long FLUSH_THRESHOLD = 0;  // 1MB 触发刷盘
+    private static final long FLUSH_THRESHOLD = 1024 * 1024 * 16; // 16MB 触发刷盘
+//    private static final long FLUSH_THRESHOLD = 0;  // 测试 触发刷盘
     public void put(KeyValue kv) {
         map.put(kv, kv);
         sizeInBytes += kv.getRowKey().length() + kv.getValue().length; // 粗略估算
