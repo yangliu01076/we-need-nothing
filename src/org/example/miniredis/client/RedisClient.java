@@ -8,9 +8,9 @@ import java.net.Socket;
  * @date 2026/3/4
  */
 public class RedisClient {
-    private Socket socket;
-    private BufferedReader reader;
-    private PrintWriter writer;
+    private final Socket socket;
+    private final BufferedReader reader;
+    private final PrintWriter writer;
 
     public RedisClient(String host, int port) throws IOException {
         this.socket = new Socket(host, port);
